@@ -4,7 +4,7 @@
   target="_blank"
   >{{ link.name }}</a>
 
-  <router-link v-else :to="link.to">
+  <router-link v-else :to="route">
       {{ link.name }}
   </router-link>
 </template>
@@ -20,6 +20,11 @@ export default {
     computed: {
         isExternalLink() {
             return this.link.to.startsWith('http')
+        },
+        route() {
+            return this.link.id
+                ? { name: this.link.to, params: {id: this.link.id}}
+                : { name: this.link.to }
         }
     }
 }
