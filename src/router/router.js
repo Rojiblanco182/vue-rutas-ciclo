@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import isAuthenticatedGuard from './auth-guard'
 
 const routes = [
     {
@@ -38,6 +39,7 @@ const routes = [
     {
         path: '/dbz',
         name: 'dbz',
+        beforeEnter: [ isAuthenticatedGuard ],
         component: () => import(/* webpackChunkName: "Dragon Ball layout" */ '@/modules/dbz/layouts/DragonBallLayout'),
         children: [
             {
@@ -84,7 +86,7 @@ const router = createRouter({
 
 // Asynchronous global guard
 
-const canAccess = () => {
+/* const canAccess = () => {
     return new Promise(resolve => {
         const random = Math.random() * 100
 
@@ -103,6 +105,6 @@ router.beforeEach(async (to, from, next) => {
     authorized
         ? next()
         : next({ name: 'pokemon-home' })
-})
+}) */
 
 export default router
